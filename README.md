@@ -1,47 +1,79 @@
-# MediVault Authentication Fix
+MediVault - Secure Healthcare Management Platform
+MediVault is a comprehensive healthcare management platform that enables patients to securely store, manage, and share their medical records. With enterprise-grade security and multiple language support, MediVault provides a modern solution for healthcare data management.
 
-## Changes Made
+🚀 Features
+Secure Medical Records Management
 
-1. Created a centralized API utility with Axios interceptors to automatically:
-   - Add authentication tokens to every request
-   - Handle 401 unauthorized errors by redirecting to login
-   - Simplify API calls throughout the application
+Upload and view encrypted medical history
+Categorize records by type (prescriptions, lab reports, etc.)
+AES-256 encryption for secure storage
+Smart Reminders
 
-2. Implemented proper authentication state management with React Context:
-   - Created AuthContext for managing authentication state
-   - Implemented token validation on app startup
-   - Improved protected routes behavior
+Medicine reminders from prescriptions
+Scheduled health checkup alerts
+Push notifications via Firebase
+AI-Powered Health Assistant
 
-3. Updated middleware on the server to properly handle token expiration
+Health-related FAQ support
+Prescription and medicine guidance
+Powered by Gemini AI
+Secure Doctor Access
 
-4. Fixed navigation and routing:
-   - Protected Home route and redirected to Dashboard for authenticated users
-   - Updated Layout component to show different navigation based on auth state
-   - Fixed issue with logout not being properly applied across all pages
+QR code-based temporary access
+Role-based permissions
+Secure record sharing
+Multilingual Support
 
-## How to Restart the Application
+English, Hindi, Tamil, and Kannada interfaces
+AI assistant with multilingual capabilities
+🛠️ Tech Stack
+Frontend
+React.js
+React Router for navigation
+i18next for internationalization
+Axios for API communication
+Custom CSS for styling
+Backend
+Node.js & Express
+MongoDB for database
+JWT authentication
+Firebase for notifications
+Cloudinary for file storage
+Google Cloud Translation & Gemini AI API
+📋 Installation and Setup
+Prerequisites
+Node.js (v16 or later)
+MongoDB instance (local or Atlas)
+Cloudinary account
+Firebase project
+Google Cloud project with Translation & AI APIs enabled
+Server Setup
+Client Setup
+🔒 Environment Variables
+Server (.env)
+Client (.env)
+📱 Usage
+Register for a new account or login with existing credentials
+Upload medical records with appropriate categories
+Set medication reminders and appointments
+Generate QR codes to share records with healthcare providers
+Use the AI assistant for health-related queries
+🌐 Deployment
+See the deployment guide for detailed instructions on deploying MediVault to:
 
-To apply these changes, please follow these steps:
+Vercel (Frontend)
+Netlify (Frontend)
+Render (Backend)
+Firebase (Hosting)
+📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Server Restart:
-```bash
-cd server
-npm install
-npm start
-```
-
-### Client Restart:
-```bash
-cd client
-npm install
-npm start
-```
-
-## Testing Authentication Flow
-
-1. Visit the login page and authenticate
-2. Navigate to Dashboard and other pages - you should remain logged in
-3. Try clicking links like Home/Features - you should be redirected to Dashboard
-4. Try logging out - you should be fully logged out across the app
-
-The authentication issue should now be resolved. Users will stay logged in when navigating between pages, and any API token issues will be properly handled. 
+👥 Contributors
+Frontend Development: [Your Name]
+Backend Development: [Your Name]
+UX/UI Design: [Your Name]
+🙏 Acknowledgements
+Google Cloud for AI and translation services
+MongoDB Atlas for database services
+Cloudinary for file storage
+Firebase for authentication and notifications
