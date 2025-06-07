@@ -1,187 +1,172 @@
-🏥 MediVault - Secure Healthcare Management Platform
+# Medi-Vault: Secure Medical Record Management System
 
-MediVault is a next-generation healthcare management platform that enables patients to securely store, manage, and share their medical records. With enterprise-grade security, multilingual support, and AI-powered features, MediVault modernizes healthcare data management for a digital world.
+Medi-Vault is a comprehensive and secure application designed to manage medical records, set reminders, interact with an AI chatbot for health queries, and facilitate easy sharing of medical information. It supports multiple languages and ensures data privacy through robust encryption and authentication mechanisms.
 
-🚀 Features
+## ✨ Features
 
-🔒 Secure Medical Records Management
+*   **User Authentication:** Secure registration and login for patients and healthcare providers.
+*   **Medical Record Management:** Upload, view, and manage medical documents (PDFs, images).
+*   **Encrypted Storage:** Medical records are encrypted to ensure patient data confidentiality.
+*   **Reminders:** Set and receive notifications for appointments, medication, etc.
+*   **AI Chatbot:** Integrated Gemini-powered chatbot for health-related queries and assistance.
+*   **Multi-language Support:** Frontend and backend support for multiple languages (English, Hindi, Tamil, Kannada).
+*   **Secure Sharing:** Generate QR codes for time-limited, secure sharing of medical records.
+*   **Contact Form:** Allow users to send inquiries or feedback.
+*   **Cloudinary Integration:** For efficient storage and delivery of uploaded files.
+*   **Google Translate API:** For dynamic content translation.
 
-Upload and view encrypted medical records (prescriptions, reports, etc.)
+## 🛠️ Tech Stack
 
-Organize files by category
+*   **Frontend:**
+    *   React
+    *   Tailwind CSS
+    *   Axios (for API calls)
+    *   i18next (for internationalization)
+    *   React Router
+    *   Headless UI, Heroicons
+*   **Backend:**
+    *   Node.js
+    *   Express.js
+    *   MongoDB (with Mongoose)
+    *   JSON Web Tokens (JWT) for authentication
+    *   bcryptjs (for password hashing)
+    *   Crypto-JS (for data encryption)
+    *   Firebase Admin SDK (potentially for auth or other services)
+    *   Cloudinary API
+    *   Google Generative AI (Gemini API)
+    *   Google Translate API
+    *   Nodemailer (implied by email config, for sending emails)
+*   **Database:**
+    *   MongoDB Atlas (or any MongoDB instance)
 
-End-to-end AES-256 encryption for maximum security
+## 📂 Project Structure
+medi-vault/ ├── client/ # React Frontend Application │ ├── public/ │ ├── src/ │ │ ├── components/ │ │ ├── context/ │ │ ├── locales/ │ │ ├── pages/ │ │ └── utils/ │ ├── package.json │ └── ... ├── server/ # Node.js Backend Application │ ├── controllers/ │ ├── middleware/ │ ├── models/ │ ├── routes/ │ ├── locales/ │ ├── uploads/ # (Potentially .gitignored) │ ├── package.json │ ├── server.js │ └── .env # (Gitignored - Environment variables) ├── deployment-guide.md ├── deploy.sh └── README.md
 
-⏰ Smart Reminders
 
-Medicine reminders
+##  Prerequisites
 
-Scheduled health checkup alerts
+*   Node.js (v18.x or higher recommended)
+*   npm (v8.x or higher) or yarn
+*   Git
+*   MongoDB instance (local or cloud-hosted like MongoDB Atlas)
 
-Push notifications via Firebase Cloud Messaging (FCM)
+## 🚀 Getting Started
 
-🤖 AI-Powered Health Assistant
+### 1. Clone the Repository
 
-Health-related FAQs
+```bash
+git clone https://github.com/your-username/medi-vault.git
+cd medi-vault
 
-Prescription and medicine guidance
-
-Powered by Google Gemini AI APIs
-
-🩺 Secure Doctor Access
-
-Temporary QR code sharing for medical records
-
-Role-based access control (RBAC)
-
-🌎 Multilingual Support
-
-English, Hindi, Tamil, Kannada
-
-AI assistant operates in multiple languages
-
-🛠️ Tech Stack
-
-Frontend
-
-React.js (with React Router)
-
-i18next (internationalization)
-
-Axios (API communication)
-
-TailwindCSS + Custom CSS
-
-Backend
-
-Node.js & Express
-
-MongoDB + Mongoose
-
-JWT Authentication
-
-Firebase for notifications
-
-Cloudinary for file uploads
-
-Google Cloud APIs (Translation, Gemini AI)
-
-⚙️ Installation & Setup
-
-Prerequisites
-
-Node.js v16+
-
-MongoDB Atlas or Local Instance
-
-Cloudinary Account
-
-Firebase Project
-
-Google Cloud Project (Translation & AI APIs)
-
-1️⃣ Backend Setup
-
+2. Backend Setup
 cd server
 npm install
-cp .env.example .env
-npm start
+Create a .env file in the server directory and add the following environment variables. Replace placeholder values with your actual credentials and keys.
 
-2️⃣ Frontend Setup
-
-cd client
-npm install
-cp .env.example .env
-npm start
-
-🔒 Environment Variables
-
-Backend (server/.env)
-
+# Server Configuration
 PORT=5000
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-ENCRYPTION_KEY=your_encryption_key
+
+# MongoDB Configuration
+MONGODB_URI=mongodb+srv://<your_username>:<your_password>@<your_cluster>.mongodb.net/<your_database_name>
+
+# JWT Configuration
+JWT_SECRET=your_strong_jwt_secret_key
+
+# Encryption Configuration
+ENCRYPTION_KEY=your_strong_encryption_key_32_bytes
+
+# Firebase Configuration (Update with your actual Firebase service account details)
 FIREBASE_PROJECT_ID=your_firebase_project_id
-FIREBASE_PRIVATE_KEY=your_firebase_private_key
-FIREBASE_CLIENT_EMAIL=your_firebase_client_email
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_FIREBASE_PRIVATE_KEY_HERE\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=your_firebase_client_email@your_project_id.iam.gserviceaccount.com
+
+# QR Code Configuration
 QR_CODE_EXPIRY=24h
-EMAIL_USER=your_email_for_notifications
-EMAIL_PASSWORD=your_email_password
+
+# Email Configuration (e.g., for Nodemailer using Gmail)
+EMAIL_USER=your_email_address@gmail.com
+EMAIL_PASSWORD=your_gmail_app_password
+
+# Gemini API Configuration
 GEMINI_API_KEY=your_gemini_api_key
-GOOGLE_PROJECT_ID=your_google_project_id
+
+# Google Cloud Configuration
+GOOGLE_PROJECT_ID=your_google_cloud_project_id_for_translate
 GOOGLE_TRANSLATE_API_KEY=your_google_translate_api_key
+
+# Cloudinary Configuration
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
-Frontend (client/.env)
+Start the backend server:
 
-REACT_APP_API_URL=http://localhost:5000/api
+npm run dev # For development with nodemon
+# OR
+npm start   # For production
 
-📲 Usage
+The backend server will typically run on http://localhost:5000.
 
-Register/Login into the MediVault platform.
+3. Frontend Setup
+Open a new terminal:
 
-Upload your encrypted medical records.
+cd client
+npm install
+Create a .env file in the client directory:
 
-Schedule medicine reminders and appointments.
+REACT_APP_API_URL=http://localhost:5000
 
-Share medical records securely using QR codes.
+(If your backend API routes are prefixed, e.g., /api, use REACT_APP_API_URL=http://localhost:5000/api)
 
-Consult the AI Assistant for health advice in multiple languages.
+Start the frontend development server:
 
-🌐 Deployment Instructions
+npm start
 
-Frontend can be deployed on:
+The frontend will typically run on http://localhost:3000 and open automatically in your browser.
 
-Vercel
+☁️ Deployment
+This project is configured for deployment on platforms like Vercel (for frontend) and Render (for backend).
 
-Netlify
+Frontend (Vercel)
+Push your code to a GitHub repository.
+Sign up/Log in to Vercel.
+Import your project from GitHub.
+Configuration:
+Framework Preset: Create React App (or React).
+Root Directory: client
+Build Command: npm run build (or yarn build)
+Output Directory: build (relative to the Root Directory, so build)
+Install Command: npm install --legacy-peer-deps (to resolve potential peer dependency issues)
+Environment Variables on Vercel:
+REACT_APP_API_URL: Set this to the URL of your deployed backend (e.g., https://your-backend-name.onrender.com).
+Backend (Render)
+Push your code to a GitHub repository.
+Sign up/Log in to Render.
+Create a new "Web Service".
+Connect your GitHub repository.
+Configuration:
+Name: e.g., medi-vault-api
+Region: Choose a suitable region.
+Branch: main (or your primary branch).
+Root Directory: server
+Environment: Node
+Build Command: npm install (or yarn install)
+Start Command: npm start
+Environment Variables on Render:
+Add all the environment variables defined in your .env file to Render's environment variable settings for the service. Ensure NODE_ENV is set to production.
+Important for CORS: Ensure your backend's CORS configuration allows requests from your Vercel frontend domain. You might need to set a CORS_ORIGIN environment variable if your server.js uses it, or configure the cors middleware directly with your frontend's URL.
+Refer to the deployment-guide.md for more detailed steps and alternative deployment options.
 
-Backend can be deployed on:
+🤝 Contributing
+Contributions are welcome! Please follow these steps:
 
-Render
+Fork the repository.
+Create a new branch (git checkout -b feature/your-feature-name).
+Make your changes.
+Commit your changes (git commit -m 'Add some feature').
+Push to the branch (git push origin feature/your-feature-name).
+Open a Pull Request.
+📄 License
+This project is currently unlicensed. Consider adding an MIT License or another open-source license if you wish to share it widely.
 
-Railway
-
-Firebase can be used for production-grade push notifications.
-
-(Need a full deploy guide? Ping me.)
-
-📜 License
-
-This project is licensed under the MIT License.
-
-👥 Contributors
-
-
-Role	Name
-🛠️ Backend Developer	Vignesh Krishna
-🎨 Frontend Developer	Vignesh Krishna
-🧠 AI Integration	Vignesh Krishna
-(Bro’s carrying the project harder than prime Messi 💀)
-
-🙏 Acknowledgements
-
-Google Cloud
-
-Firebase
-
-MongoDB Atlas
-
-Cloudinary
-
-🚀 Future Improvements
-
-Admin dashboard for monitoring system activity
-
-Payment integration for premium health services
-
-Role-based advanced analytics for doctors
-
-More languages (Spanish, French, Arabic)
-
-🌟 Why MediVault?
-
-Because health data deserves to be safe, easy, and smart — just like every modern healthcare solution should be.
+This README was generated with assistance from an AI coding assistant.
