@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaCog, FaShieldAlt, FaSignInAlt, FaSignOutAlt, FaMedkit, FaUser, FaTachometerAlt, FaBars, FaTimes, FaTwitter, FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { FaHome, FaCog, FaShieldAlt, FaSignInAlt, FaSignOutAlt, FaMedkit, FaUser, FaTachometerAlt, FaBars, FaTimes, FaTwitter, FaFacebookF, FaLinkedinIn, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import Chatbot from './Chatbot';
 import logo from '../logo.svg'; // Import the logo SVG file
 
 function Layout({ children }) {
@@ -58,6 +59,12 @@ function Layout({ children }) {
                   </button>
                 </li>
                 <li>
+                  <button onClick={() => handleNavigation('/contact')} className="nav-link">
+                    <FaEnvelope className="nav-icon" />
+                    <span>{t('common.contact')}</span>
+                  </button>
+                </li>
+                <li>
                   <button onClick={handleLogout} className="nav-link login">
                     <FaSignOutAlt className="nav-icon" />
                     <span>{t('common.logout')}</span>
@@ -103,6 +110,8 @@ function Layout({ children }) {
       <main className="main-content">
         {children}
       </main>
+
+      {isAuthenticated && <Chatbot />}
 
       <footer className="App-footer">
         <div className="footer-content">

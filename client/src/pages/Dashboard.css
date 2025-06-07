@@ -16,9 +16,22 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-header h1 {
-  font-size: 1.8rem;
-  margin: 0;
+.welcome-user {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.user-name {
+  color: white;
+  font-weight: 600;
+  display: inline;
+  text-transform: capitalize;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .logout-btn {
@@ -35,128 +48,49 @@
   background-color: #ef4444;
 }
 
-/* Main dashboard grid layout */
-.dashboard-content {
+/* New Grid Layout System */
+.dashboard-grid {
   display: grid;
-  grid-template-columns: 3fr 1fr; /* Left column takes 3/4, right column takes 1/4 */
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
 }
 
-/* Left column - Medical Records and Reminders */
-.medical-records {
-  grid-column: 1;
-  grid-row: 1;
+.dashboard-item {
   background: white;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+}
+
+.medical-records {
+  grid-column: span 3;
+  grid-row: 1;
+}
+
+.quick-actions {
+  grid-column: 4;
+  grid-row: 1;
 }
 
 .reminders-section {
-  grid-column: 1;
+  grid-column: span 4;
   grid-row: 2;
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
 }
 
-/* Right column container */
-.right-column {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* QR section */
-.qr-section {
-  background: white;
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-height: 220px;
-}
-
-.qr-section h2 {
+/* Headings styling */
+.dashboard-item h2 {
   color: #2563eb;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0;
-  letter-spacing: 0.03em;
-}
-
-/* Chatbot section */
-.chatbot-section {
-  background: white;
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-height: 260px;
-  max-height: 400px;
-  display: flex;
-  flex-direction: column;
-}
-
-.chatbot-section h2 {
-  color: #2563eb;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0;
-  letter-spacing: 0.03em;
-}
-
-/* Right reminders section */
-.right-reminders-section {
-  background: white;
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-height: 320px; /* Larger than chatbot and QR code */
-  max-height: 500px;
-  overflow: auto;
-  margin-top: 2rem;
-}
-
-.right-reminders-section h2 {
-  color: #047857;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0;
-  letter-spacing: 0.03em;
-}
-
-/* Section headers with consistent blue color theme */
-.medical-records h2,
-.reminders-section h2,
-.qr-section h2,
-.chatbot-section h2 {
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
   letter-spacing: 0.03em;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
   display: inline-block;
   position: relative;
-  color: #2563eb; /* Consistent blue color for all components */
-}
-
-/* Remove underlines and clear any existing pseudo-elements */
-.medical-records h2::after,
-.reminders-section h2::after,
-.quick-actions h2::after,
-.chatbot-section h2::after,
-.medical-records h2::before,
-.reminders-section h2::before,
-.quick-actions h2::before,
-.chatbot-section h2::before {
-  display: none;
+  border-bottom: 2px solid rgba(37, 99, 235, 0.1);
+  padding-bottom: 0.5rem;
+  width: 100%;
 }
 
 /* Records styling */
@@ -171,13 +105,12 @@
   padding: 1rem;
   border-radius: 6px;
   border: 1px solid #e9ecef;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .record-card:hover {
@@ -194,10 +127,9 @@
 .record-card h3 {
   margin: 0;
   font-size: 1rem;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 100%;
+  overflow: hidden;
 }
 
 .record-card p {
@@ -206,26 +138,19 @@
   color: #666;
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .record-category {
-  position: relative;
-  top: auto;
-  right: auto;
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 600;
-  background-color: #e3f2fd;
-  color: #1976d2;
   margin-right: 0;
   flex-shrink: 0;
   width: 80px;
   text-align: center;
-  align-self: center;
 }
 
 .record-date {
@@ -237,64 +162,23 @@
 .record-actions {
   display: flex;
   gap: 0.5rem;
-  opacity: 1;
   margin-left: auto;
   flex-shrink: 0;
 }
 
-/* Action buttons */
-.action-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
 .action-btn {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
-  border: none;
-  padding: 1.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
-}
-
-.action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
-}
-
-.action-btn .action-icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.action-btn .action-title {
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.action-btn .action-description {
-  color: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
   font-size: 0.9rem;
-  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+  transition: background-color 0.2s ease;
 }
 
 .download-btn {
   background-color: #4caf50;
   color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex: 1;
 }
 
 .download-btn:hover {
@@ -304,20 +188,12 @@
 .delete-btn {
   background-color: #f44336;
   color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex: 1;
 }
 
 .delete-btn:hover {
   background-color: #d32f2f;
 }
 
-/* Upload button styles */
 .upload-button-container {
   margin: 1rem 0;
 }
@@ -344,10 +220,25 @@
 .upload-record-btn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
-  transform: none;
 }
 
-/* Category-specific styles */
+.category-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.upload-info {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Category colors */
 .record-category[data-category="prescription"] {
   background-color: #e8f5e9;
   color: #2e7d32;
@@ -373,109 +264,7 @@
   color: #616161;
 }
 
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  color: #2c3e50;
-  text-align: center;
-}
-
-.modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.modal-form input,
-.modal-form select {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.cancel-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  flex: 1;
-}
-
-.confirm-btn {
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  flex: 1;
-}
-
-.cancel-btn:hover {
-  background-color: #c0392b;
-}
-
-.confirm-btn:hover {
-  background-color: #27ae60;
-}
-
-/* Loading and error state styles */
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-}
-
-.loading-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.5rem;
-  color: #2563eb;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
+/* Error Messages */
 .error-message {
   background-color: #f8d7da;
   color: #721c24;
@@ -484,30 +273,32 @@
   margin-bottom: 1rem;
 }
 
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
 /* Responsive layout adjustments */
 @media (max-width: 1024px) {
-  .dashboard-content {
-    grid-template-columns: 1fr;
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .medical-records {
-    grid-column: 1;
+    grid-column: span 2;
     grid-row: 1;
   }
-  
-  .reminders-section {
-    grid-column: 1;
+
+  .quick-actions {
+    grid-column: span 2;
     grid-row: 2;
   }
-  
-  .right-column {
-    grid-column: 1;
+
+  .reminders-section {
+    grid-column: span 2;
     grid-row: 3;
-    gap: 1.5rem;
-  }
-  
-  .chatbot-section {
-    min-height: 350px;
   }
 }
 
@@ -516,53 +307,37 @@
     padding: 1rem;
   }
 
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .dashboard-header {
     flex-direction: column;
     text-align: center;
+    padding: 1rem;
   }
 
   .logout-btn {
     margin-top: 1rem;
   }
 
-  .header-actions {
-    flex-direction: column;
-    width: 100%;
+  .medical-records {
+    grid-column: 1;
+    grid-row: 1;
   }
 
-  .upload-btn, .logout-btn {
-    width: 100%;
+  .quick-actions {
+    grid-column: 1;
+    grid-row: 2;
   }
 
-  .action-buttons {
-    flex-direction: column;
+  .reminders-section {
+    grid-column: 1;
+    grid-row: 3;
   }
 
-  .action-btn {
-    padding: 0.75rem;
+  .dashboard-item {
+    padding: 1rem;
   }
-
-  .modal-content {
-    width: 95%;
-    padding: 1.5rem;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
 }

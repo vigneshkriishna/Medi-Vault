@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaRobot, FaPaperPlane } from 'react-icons/fa';
+import { FaRobot, FaPaperPlane, FaTimes, FaComment } from 'react-icons/fa';
 import axios from 'axios';
 import './Chatbot.css';
 
@@ -7,6 +7,7 @@ function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -16,6 +17,10 @@ function Chatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const toggleChatbot = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,48 +84,69 @@ function Chatbot() {
   };
 
   return (
-    <div className="chatbot-container">
-      <div className="chatbot-header">
-        <div className="bot-avatar">
-          <FaRobot />
-        </div>
-        <h2>Chatbot</h2>
-      </div>
-
-      <div className="chat-messages">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'} ${message.isError ? 'error-message' : ''}`}
-          >
-            <p>{message.text}</p>
-            <span className="timestamp">
-              {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </span>
-          </div>
-        ))}
-        {isTyping && (
-          <div className="bot-message typing">
-            <div className="typing-dot"></div>
-            <div className="typing-dot"></div>
-            <div className="typing-dot"></div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      <form onSubmit={handleSubmit} className="chat-input-form">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="chat-input"
-        />
-        <button type="submit" className="send-button" disabled={!input.trim() || isTyping}>
-          Send <FaPaperPlane />
+    <div className="chatbot-wrapper">
+      {!isOpen && (
+        <button onClick={toggleChatbot} className="chatbot-toggle-btn">
+          <FaComment />
+          <span>Chat with MediAssistant</span>
         </button>
-      </form>
+      )}
+      
+      {isOpen && (
+        <div className="chatbot-popup">
+          <div className="chatbot-container">
+            <div className="chatbot-header">
+              <div className="bot-avatar">
+                <FaRobot />
+              </div>
+              <h2>MediAssistant</h2>
+              <button onClick={toggleChatbot} className="close-chatbot">
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="chat-messages">
+              {messages.length === 0 && (
+                <div className="welcome-message">
+                  <p>Hello! I'm your MediAssistant. How can I help you with your health records today?</p>
+                </div>
+              )}
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'} ${message.isError ? 'error-message' : ''}`}
+                >
+                  <p>{message.text}</p>
+                  <span className="timestamp">
+                    {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </div>
+              ))}
+              {isTyping && (
+                <div className="bot-message typing">
+                  <div className="typing-dot"></div>
+                  <div className="typing-dot"></div>
+                  <div className="typing-dot"></div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <form onSubmit={handleSubmit} className="chat-input-form">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className="chat-input"
+              />
+              <button type="submit" className="send-button" disabled={!input.trim() || isTyping}>
+                <FaPaperPlane />
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -53,6 +53,7 @@ const userRoutes = require('./routes/userRoutes');
 const medicalRecordRoutes = require('./routes/medicalRecordRoutes');
 const reminderRoutes = require('./routes/reminderRoutes');
 const chatbotRoutes = require('./routes/chatbotRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 // Create Express app
 const app = express();
@@ -80,6 +81,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/medical-records', medicalRecordRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/chatbot', chatbotRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
