@@ -113,12 +113,17 @@
 .main-content {
   flex: 1;
   padding: 2rem;
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+=======
+  max-width: 1200px;
+  margin: 0 auto;
+>>>>>>> 9b3a1dda1a213128b59969f777f05ffe9a4b4207
   width: 100%;
   padding-top: 80px; /* Fixed height to account for the header */
 }
