@@ -5,6 +5,7 @@ const i18next = require('i18next');
 // Initialize Gemini with error handling
 let genAI;
 try {
+  console.log('Checking for GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? 'Present' : 'Missing');
   if (!process.env.GEMINI_API_KEY) {
     console.error('CRITICAL ERROR: Gemini API key is not configured. Set GEMINI_API_KEY in your environment variables.');
   } else {
@@ -76,6 +77,7 @@ const translateText = async (text, targetLang) => {
 exports.processMessage = async (req, res) => {
   try {
     console.log('Processing chat message:', req.body);
+    console.log('Gemini API status:', genAI ? 'Initialized' : 'Not initialized');
     const { message, language = 'en' } = req.body;
     
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
@@ -111,9 +113,9 @@ exports.processMessage = async (req, res) => {
       const prompt = `You are a helpful healthcare assistant. Answer this health-related question concisely: ${translatedMessage}`;
       console.log('Sending prompt to Gemini:', prompt);
       
-      // Use the correct API version (v1 instead of v1beta)
+      // Use the correct API version and model name
       const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-pro",
+        model: "gemini-pro",
         apiVersion: "v1" 
       });
       

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { FaUser, FaPowerOff } from 'react-icons/fa';
 import Reminders from '../components/Reminders';
-import Chatbot from '../components/Chatbot';
 import ShareAccess from '../components/ShareAccess';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
@@ -138,14 +138,19 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Welcome, {user?.name || 'User'}!</h1>
-        <button onClick={handleLogout} className="logout-btn">{t('dashboard.logout')}</button>
+        <div className="welcome-user">
+          Welcome to MediVault, <span className="user-name">{user && user.name ? user.name : "User"}</span>
+        </div>
+        <button onClick={handleLogout} className="logout-btn">
+          <FaPowerOff style={{ marginRight: '8px' }} />
+          {t('dashboard.logout')}
+        </button>
       </header>
 
       {error && <div className="error-message">{error}</div>}
 
-      <div className="dashboard-content">
-        <section className="medical-records">
+      <div className="dashboard-grid">
+        <section className="dashboard-item medical-records">
           <h2>{t('dashboard.medicalRecords')}</h2>
           <div className="upload-area">
             <select
@@ -186,7 +191,10 @@ function Dashboard() {
               <div className="records-grid">
                 {records.map((record) => (
                   <div key={record._id} className="record-card" onClick={() => handleView(record.fileUrl)}>
-                    <div className="record-category">
+                    <div 
+                      className="record-category" 
+                      data-category={record.category.toLowerCase()}
+                    >
                       {t(`dashboard.categories.${record.category.toLowerCase()}`)}
                     </div>
                     <div className="record-info">
@@ -223,22 +231,15 @@ function Dashboard() {
           </div>
         </section>
 
-        <section className="reminders-section">
+        <section className="dashboard-item quick-actions">
+          <h2>{t('dashboard.quickActions')}</h2>
+          <ShareAccess />
+        </section>
+        
+        <section className="dashboard-item reminders-section">
           <h2>{t('dashboard.reminders')}</h2>
           <Reminders />
         </section>
-
-        <div className="right-column">
-          <div className="qr-section">
-            <h2>{t('dashboard.quickActions')}</h2>
-            <ShareAccess />
-          </div>
-          
-          <div className="chatbot-section">
-            <h2>{t('dashboard.aiAssistant')}</h2>
-            <Chatbot />
-          </div>
-        </div>
       </div>
     </div>
   );

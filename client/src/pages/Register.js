@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import './Register.css';
 
 function Register() {
   const { t } = useTranslation();
@@ -57,116 +56,159 @@ function Register() {
       setLoading(false);
     }
   };
-
   return (
-    <div className="register-container">
-      <div className="register-box">
-        <h2>{t('auth.register')}</h2>
-        <p>{t('auth.joinMessage')}</p>
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="auth-icon">👤</div>
+          <h2>{t('auth.register', 'Create Account')}</h2>
+          <p className="auth-subtitle">{t('auth.joinMessage', 'Join us for secure healthcare management')}</p>
+        </div>
         
         {error && <div className="error-message">{error}</div>}
         
-        <form onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">{t('auth.name')}</label>
-            <input
-              type="text"
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              placeholder="Enter your full name"
-              required
-            />
+            <label htmlFor="name">{t('auth.name', 'Full Name')}</label>
+            <div className="input-group">
+              <input
+                type="text"
+                id="name"
+                className="auth-input"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="Enter your full name"
+                required
+              />
+              <span className="input-icon">👤</span>
+            </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">{t('auth.email')}</label>
-            <input
-              type="email"
-              id="email"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              placeholder="Enter your email address"
-              required
-            />
+            <label htmlFor="email">{t('auth.email', 'Email Address')}</label>
+            <div className="input-group">
+              <input
+                type="email"
+                id="email"
+                className="auth-input"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                placeholder="Enter your email address"
+                required
+              />
+              <span className="input-icon">📧</span>
+            </div>
           </div>
-          
-          <div className="form-group">
-            <label htmlFor="password">{t('auth.password')}</label>
-            <input
-              type="password"
-              id="password"
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              placeholder="Choose a secure password"
-              required
-              minLength="6"
-            />
+            <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="password">{t('auth.password', 'Password')}</label>
+              <div className="input-group">
+                <input
+                  type="password"
+                  id="password"
+                  className="auth-input"
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  placeholder="Choose a secure password"
+                  required
+                  minLength="6"
+                />
+                <span className="input-icon">🔒</span>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword">{t('auth.confirmPassword', 'Confirm Password')}</label>
+              <div className="input-group">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  className="auth-input"
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                  placeholder="Confirm your password"
+                  required
+                  minLength="6"
+                />
+                <span className="input-icon">🔒</span>
+              </div>
+            </div>
+          </div><div className="form-row">
+            <div className="form-group">
+              <label htmlFor="dateOfBirth">{t('auth.dateOfBirth', 'Date of Birth')}</label>
+              <div className="input-group">
+                <input
+                  type="date"
+                  id="dateOfBirth"
+                  className="auth-input"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})}
+                  required
+                />
+                <span className="input-icon">📅</span>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="gender">{t('auth.gender', 'Gender')}</label>
+              <div className="input-group">
+                <select
+                  id="gender"
+                  className="auth-input"
+                  value={formData.gender}
+                  onChange={(e) => setFormData({...formData, gender: e.target.value})}
+                  required
+                >
+                  <option value="">{t('auth.selectGender', 'Select Gender')}</option>
+                  <option value="male">{t('auth.male', 'Male')}</option>
+                  <option value="female">{t('auth.female', 'Female')}</option>
+                  <option value="other">{t('auth.other', 'Other')}</option>
+                </select>
+                <span className="input-icon">⚧</span>
+              </div>
+            </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">{t('auth.confirmPassword')}</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-              placeholder="Confirm your password"
-              required
-              minLength="6"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="dateOfBirth">{t('auth.dateOfBirth')}</label>
-            <input
-              type="date"
-              id="dateOfBirth"
-              value={formData.dateOfBirth}
-              onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="gender">{t('auth.gender')}</label>
-            <select
-              id="gender"
-              value={formData.gender}
-              onChange={(e) => setFormData({...formData, gender: e.target.value})}
-              required
-            >
-              <option value="">{t('auth.selectGender')}</option>
-              <option value="male">{t('auth.male')}</option>
-              <option value="female">{t('auth.female')}</option>
-              <option value="other">{t('auth.other')}</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phoneNumber">{t('auth.phoneNumber')}</label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})}
-              placeholder="Enter your phone number"
-              required
-            />
+            <label htmlFor="phoneNumber">{t('auth.phoneNumber', 'Phone Number')}</label>
+            <div className="input-group">
+              <input
+                type="tel"
+                id="phoneNumber"
+                className="auth-input"
+                value={formData.phoneNumber}
+                onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})}
+                placeholder="Enter your phone number"
+                required
+              />
+              <span className="input-icon">📱</span>
+            </div>
           </div>
 
           <button 
             type="submit" 
-            className="register-button"
+            className="auth-button"
             disabled={loading}
           >
-            {loading ? t('auth.registering') : t('auth.registerButton')}
+            {loading ? (
+              <>
+                <span className="loading-spinner"></span>
+                {t('auth.registering', 'Creating Account...')}
+              </>
+            ) : (
+              t('auth.registerButton', 'Create Account')
+            )}
           </button>
         </form>
 
-        <p className="login-link">
-          {t('auth.hasAccount')} <Link to="/login">{t('auth.loginButton')}</Link>
-        </p>
+        <div className="auth-footer">
+          <p className="auth-switch">
+            {t('auth.hasAccount', 'Already have an account?')}
+            <Link to="/login" className="switch-link">
+              {t('auth.loginButton', 'Sign In')}
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
