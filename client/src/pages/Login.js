@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { FaMedkit, FaLock } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
 function Login() {
@@ -10,15 +8,12 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
-
-    try {
+    setLoading(true);    try {
       const result = await login(email, password);
       
       if (result.success) {
@@ -28,56 +23,59 @@ function Login() {
           navigate('/dashboard');
         }
       } else {
-        setError(result.message || t('loginFailed'));
+        setError(result.message || 'Login failed');
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError(err.response?.data?.message || t('loginFailed'));
+      setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
-  };
-
-  return (
+  };  return (
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <FaMedkit className="auth-icon" />
-          <h2>{t('login')}</h2>
-          <p className="auth-subtitle">{t('welcomeBack')}</p>
+          <div className="auth-icon">
+            <div className="icon-background">
+              <span className="icon-symbol">🔐</span>
+            </div>
+          </div>
+          <h2>Welcome Back</h2>
+          <p className="auth-subtitle">Sign in to access your health records</p>
         </div>
         
         {error && <div className="error-message">{error}</div>}
         
-        <form onSubmit={handleSubmit} className="auth-form">
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">{t('email')}</label>
+            <label htmlFor="email">Email Address</label>
             <div className="input-group">
               <input
                 type="email"
                 id="email"
+                className="auth-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
                 required
-                placeholder={t('EnterEmail')}
-                className="auth-input"
               />
+              <span className="input-icon">📧</span>
             </div>
           </div>
           
           <div className="form-group">
-            <label htmlFor="password">{t('password')}</label>
+            <label htmlFor="password">Password</label>
             <div className="input-group">
               <input
                 type="password"
                 id="password"
+                className="auth-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
                 required
-                placeholder={t('EnterPassword')}
-                className="auth-input"
               />
-              <FaLock className="input-icon" />
+              <span className="input-icon">🔒</span>
             </div>
           </div>
 
@@ -86,20 +84,30 @@ function Login() {
             className="auth-button"
             disabled={loading}
           >
-            {loading ? t('loggingIn') : t('login')}
+            {loading ? (
+              <>
+                <span className="loading-spinner"></span>
+                Signing In...
+              </>
+            ) : (
+              <>
+                <span className="btn-text">Sign In</span>
+                <span className="btn-arrow">→</span>
+              </>
+            )}
           </button>
         </form>
 
         <div className="auth-footer">
-          <p className="auth-links">
+          <div className="auth-links">
             <Link to="/forgot-password" className="forgot-link">
-              {t('forgotPassword')}
+              Forgot your password?
             </Link>
-          </p>
+          </div>
           <p className="auth-switch">
-            {t('noAccount')} 
+            Don't have an account?
             <Link to="/register" className="switch-link">
-              {t('registerButton')}
+              Create Account
             </Link>
           </p>
         </div>
